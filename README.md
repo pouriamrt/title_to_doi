@@ -1,56 +1,57 @@
 # TitleToDOI
 
-A minimal Python script to retrieve the [DOI](https://www.doi.org/) (Digital Object Identifier) of a research paper from its title using the [CrossRef API](https://www.crossref.org/services/metadata-delivery/rest-api/).
+Tools for converting research paper titles into [DOI](https://www.doi.org/) (Digital Object Identifier) links using the [CrossRef REST API](https://www.crossref.org/services/metadata-delivery/rest-api/).
 
 ---
 
 ## Features
 
-- 🔎 **Automatic DOI Lookup**: Enter a paper’s title, and the script fetches its DOI from CrossRef.
-- 🚦 **Best-Match Filtering**: Attempts to match the queried title with the CrossRef result for accuracy.
-- 🛡️ **User-Friendly**: Simple, interactive command-line tool—no dependencies beyond `requests`.
-- 🤝 **Respectful API Usage**: Includes a polite User-Agent as recommended by CrossRef.
+- 🔎 **Automatic DOI Lookup** – simple function for retrieving a DOI from a title.
+- 🌐 **Web Interface** – `app.py` exposes a tiny Flask app for searching from the browser.
+- 📑 **Batch Processing** – `program.py` demonstrates how to add DOIs to rows in an Excel sheet.
+- 🤝 **Respectful API Usage** – every request sets a friendly User-Agent as recommended by CrossRef.
 
 ---
 
 ## Requirements
 
 - Python 3.7+
-- `requests` library
+- [`requests`](https://pypi.org/project/requests/) – required
+- [`flask`](https://pypi.org/project/flask/) – for the web app
+- [`pandas`](https://pypi.org/project/pandas/) and [`tqdm`](https://pypi.org/project/tqdm/) – for Excel processing
 
-Install dependencies with:
+Install the packages you need with:
 
 ```bash
-pip install requests
+pip install requests flask pandas tqdm
 ```
 
 ---
 
 ## Usage
 
-```bash
-python title_to_doi.py
-```
+### Lookup a single title
 
-You will be prompted to enter the paper title:
-
-```text
-Enter the paper title: Deep Learning for Healthcare: Review, Opportunities and Challenges
-DOI: 10.1109/tbme.2018.2874532
-```
-
-If the DOI is not found, you’ll receive a friendly message.
-
----
-
-## Example
+Use the `title_to_doi` function directly in your own code:
 
 ```python
-from title_to_doi import title_to_doi
+from program import title_to_doi
 
 doi = title_to_doi("Attention Is All You Need")
-print(doi)  # Outputs: 10.5555/3295222.3295349
+print(doi)
 ```
+
+### Run the web app
+
+```bash
+python app.py
+```
+
+Visit <http://localhost:8080> and enter a paper title. If a DOI is found it will be displayed and linked.
+
+### Process an Excel sheet
+
+`program.py` expects an Excel file named `picos_compliance_results.xlsx` in the parent directory.  For each row the script looks up the DOI and writes the results to `picos_compliance_results_with_doi.xlsx`.
 
 ---
 
@@ -85,8 +86,8 @@ MIT License. See [LICENSE](LICENSE) for details.
 
 ## Contact
 
-Questions or suggestions?\
-Feel free to open an issue or contact [Pouria Mortezaagha](mailto\:pouriamortezaagha7@gmail.com).
+Questions or suggestions?
+Feel free to open an issue or contact [Pouria Mortezaagha](mailto:pouriamortezaagha7@gmail.com).
 
 ---
 
